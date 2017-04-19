@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Bubble | Charts</title>
+    </h:head>
+    <h:body>
+        <h:form > 
+            <p:selectOneMenu class="form-control"  value="#{bubbleController.idChart}">
+                <f:selectItem itemLabel="[Seleccionar]" ></f:selectItem>
+                <f:selectItems var="bub" value="#{bubbleController.lstChart}" itemLabel="#{bub.mes}" itemValue="#{bub.idchart}" ></f:selectItems> 
+                <p:ajax listener="#{bubbleController.recuperarDatos()}" update="@form"></p:ajax>
+            </p:selectOneMenu> 
+            <p:dataTable var="bubble" value="#{bubbleController.lstChart}">
+                <p:column headerText="Id">
+                    <h:outputText value="#{bubble.idchart}" />
+                </p:column>
+
+                <p:column headerText="Mes">
+                    <h:outputText value="#{bubble.mes}" />
+                </p:column>
+
+                <p:column headerText="Ingresos">
+                    <h:outputText value="#{bubble.ingresos}" />
+                </p:column>
+
+            </p:dataTable>
+            <!-- comment -->
+            <p:chart type="line" rendered="#{not empty bubbleController.listita}" model="#{bubbleController.lineModel2}" style="height:300px;"/>
+            <p:chart type="bubble" rendered="#{not empty bubbleController.listita}" model="#{bubbleController.bubbleModel}" />         
+        </h:form>
+    </h:body>
+</html>
+
